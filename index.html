@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>素年锦时 | Chenes's space</title>
+    <script src="js/3.4.16.js"></script>
+    <!-- 引入 Font Awesome CDN，确保图标显示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdgNsWFqH/v6yGmiupQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <link href="css/all.min.css" rel="stylesheet">  已替换为CDN -->
+    <link href="css/font.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8A7968',
+                        secondary: '#D4C5B1',
+                        accent: '#A67C52',
+                        light: '#F5F1ED',
+                        dark: '#3A3226'
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                        handwriting: ['ZCOOL XiaoWei', 'cursive']
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow-sm {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            }
+            .text-shadow {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .organic-shape {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            .organic-shape-alt {
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .bg-texture {
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            }
+            .nav-link-bg {
+                position: relative;
+                overflow: hidden;
+                padding: 2px 22px; /* 左右填充4px，上下填充2px */
+                display: inline-block;
+                font-weight: bold;
+            }
+            .nav-link-bg::before {
+                content: '';
+                position: absolute;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background: #8A7968; /* bg-primary色 */
+                border-radius: 6px; /* 圆角矩形 */
+                opacity: 0;
+                z-index: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.35s cubic-bezier(.4,0,.2,1), opacity 0.35s;
+            }
+            .nav-link-bg:hover::before {
+                opacity: 0.38;
+                transform: scaleX(1); /* 放大效果 */
+            }
+            .nav-link-bg span {
+                position: relative;
+                z-index: 1;
+                transition: color 0.3s;
+            }
+
+            /* 时间线样式 */
+            .timeline-item {
+                position: relative;
+                padding-left: 2.5rem; /* Space for the line and circle */
+                margin-bottom: 3rem;
+            }
+            .timeline-item:last-child {
+                margin-bottom: 0;
+            }
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: 10px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background-color: #D4C5B1; /* secondary color for line */
+            }
+            .timeline-item::after {
+                content: '';
+                position: absolute;
+                left: 4px;
+                top: 6px;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background-color: #8A7968; /* primary color for circle */
+                border: 2px solid #F5F1ED; /* light background */
+                box-shadow: 0 0 0 3px rgba(138, 121, 104, 0.2);
+            }
+            
+            /* 跑马灯样式 */
+            .quote-container {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            #marquee-text {
+                display: inline-block;
+                position: relative;
+                transition: left 0.1s linear;
+            }
+            
+            #feather-cursor {
+                animation: featherPulse 1.5s ease-in-out infinite;
+                font-size: 1.2em;
+                color: #8A7968;
+                filter: drop-shadow(0 0 3px rgba(138, 121, 104, 0.3));
+            }
+            
+            @keyframes featherPulse {
+                0%, 100% { 
+                    opacity: 1; 
+                    transform: scale(1) rotate(0deg);
+                }
+                50% { 
+                    opacity: 0.6; 
+                    transform: scale(1.1) rotate(5deg);
+                }
+            }
+            
+            /* 确保图标显示 */
+            #music-icon, #music-icon-mobile {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            
+            #todown i {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                color: #8A7968 !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light bg-texture text-dark overflow-x-hidden">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 ease-in-out py-4">
+        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+            <a href="javascript:void(0);" class="text-2xl font-handwriting text-primary">素年锦时</a>
+            
+            <!-- 桌面导航 -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link-bg font-serif text-dark hover:text-accent transition-colors duration-300"><span>首页</span></a>
+                <a href="#about" class="nav-link-bg font-serif text-dark hover:text-accent transition-colors duration-300"><span>关于我</span></a>
+                <a href="#hobbies" class="nav-link-bg font-serif text-dark hover:text-accent transition-colors duration-300"><span>兴趣爱好</span></a>
+                <a href="#gallery" class="nav-link-bg font-serif text-dark hover:text-accent transition-colors duration-300"><span>作品集</span></a>
+                <a href="#growth-experience" style="display: none;" class="nav-link-bg font-serif text-dark hover:text-accent transition-colors duration-300"><span>成长经历</span></a>
+                <a href="#contact" class="nav-link-bg font-serif text-dark hover:text-accent transition-colors duration-300"><span>联系我</span></a>
+                <!-- 音乐控制按钮 -->
+                <button id="music-toggle" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-all duration-300 ml-4" title="背景音乐">
+                    <i id="music-icon" class="fas fa-music text-primary text-lg" style="display: block !important;"></i>
+                </button>
+            </div>
+            
+            <!-- 移动端控制按钮 -->
+            <div class="md:hidden flex items-center space-x-3">
+                <!-- 音乐控制按钮 -->
+                <button id="music-toggle-mobile" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-all duration-300" title="背景音乐">
+                    <i id="music-icon-mobile" class="fas fa-music text-primary text-lg" style="display: block !important;"></i>
+                </button>
+                <!-- 菜单按钮 -->
+                <button id="menu-toggle" class="text-primary text-2xl focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden bg-white/95 backdrop-blur-sm absolute w-full left-0 top-full shadow-lg transform -translate-y-full opacity-0 transition-all duration-300 pointer-events-none">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#home" class="font-serif text-dark hover:text-accent py-2 transition-colors duration-300">首页</a>
+                <a href="#about" class="font-serif text-dark hover:text-accent py-2 transition-colors duration-300">关于我</a>
+                <a href="#hobbies" class="font-serif text-dark hover:text-accent py-2 transition-colors duration-300">兴趣爱好</a>
+                <a href="#gallery" class="font-serif text-dark hover:text-accent py-2 transition-colors duration-300">作品集</a>
+                <a href="#growth-experience" class="font-serif text-dark hover:text-accent py-2 transition-colors duration-300">成长经历</a>
+                <a href="#contact" class="font-serif text-dark hover:text-accent py-2 transition-colors duration-300">联系我</a>
+            </div>
+        </div>
+    </nav>
+    <!-- 页面容器 -->
+    <div class="scroll-container h-screen overflow-y-auto scrollbar-hide snap-y snap-mandatory">
+        <!-- 首页部分 -->
+        <section id="home" class="min-h-screen flex items-center relative snap-start">
+            <!-- 装饰元素 -->
+            <div class="absolute top-20 right-10 w-64 h-64 bg-secondary/20 organic-shape blur-xl animate-pulse"></div>
+            <div class="absolute bottom-20 left-10 w-48 h-48 bg-accent/10 organic-shape-alt blur-lg animate-pulse" style="animation-delay: 1s;"></div>
+            
+            <div class="container mx-auto px-4 md:px-8 py-20 relative z-10">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-12 md:mb-0 md:pr-12">
+                        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-serif font-bold leading-tight text-dark mb-6 transition-all duration-1000 ease-out" id="hero-title">
+                            你好，我是<span class="text-primary">Chenes</span>
+                        </h1>
+                        <p class="text-[clamp(1.1rem,2vw,1.3rem)] font-light text-dark/80 mb-8 max-w-lg transition-all duration-1000 ease-out delay-200" id="hero-subtitle">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一位IT极客，以键盘为杖，踏足代码山川;也曾执笔如剑，漫游墨香天涯。愿在繁杂的世界里，能以青春为笔，清风为歌，披着落日余晖，带着少年的不羁与热爱，奔向山河星光，寻得内心深处那一隅安宁与纯粹。
+                        </p>
+                        <div class="flex space-x-4 transition-all duration-1000 ease-out delay-400" id="hero-cta">
+                            <a href="#about" class="px-8 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                                了解更多
+                            </a>
+                            <a href="#contact" class="px-8 py-3 border-2 border-primary text-primary rounded-full hover:bg-primary/5 transition-all duration-300">
+                                联系我
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="relative">
+                            <!-- 头像容器 -->
+                            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-xl transition-all duration-1000 ease-out delay-600" id="hero-image">
+                                <img src="img/author.png" alt="Chenes的个人照片" class="w-full h-full object-cover">
+                            </div>
+                            <!-- 装饰元素 -->
+                            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-lg"></div>
+                            <div class="absolute -top-4 -left-4 w-20 h-20 bg-secondary/30 rounded-full blur-lg"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 向下滚动指示 -->
+                <div id="todown" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <a href="#quote" class="text-primary/70 hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-chevron-down text-3xl"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- 引言部分 -->
+        <section id="quote" class="min-h-screen flex items-center justify-center bg-gradient-to-b from-light to-secondary/10 relative snap-start">
+            <!-- 装饰元素 -->
+            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-light to-transparent"></div>
+            
+            <div class="container mx-auto px-4 md:px-8 py-20">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-block mb-8 p-1 bg-secondary/20 rounded-full">
+                        <i class="fas fa-quote-left text-4xl text-primary/50"></i>
+                    </div>
+                    <div class="quote-container relative" style="min-height: 4em; line-height: 2em;">
+                        <div id="marquee-text" class="font-handwriting text-[clamp(1.5rem,3vw,2.2rem)] leading-relaxed text-dark/90 text-center">
+                            <span id="marquee-span">常想若有一天，厌倦了鲜衣怒马的生活，便与那个懂得的人，找一个鸟语花香的小镇，只一粥一饭，素心对素人，那时我们一起倚楼听风雨,淡看世间事,藏一份妥帖安稳在心间，在素年锦时的光阴里，细品岁月静好!</span>
+                            <span id="feather-cursor" class="inline-block ml-1" style="display: inline-block;">🪶</span>
+                        </div>
+                    </div>
+                    <div class="inline-block p-1 bg-secondary/20 rounded-full mt-8">
+                        <i class="fas fa-quote-right text-4xl text-primary/50"></i>
+                    </div>
+                </div>
+                
+                <!-- 分隔装饰 -->
+                <div class="flex justify-center mt-16">
+                    <div class="w-24 h-1 bg-primary/30 rounded-full"></div>
+                </div>
+                
+                <!-- 向下滚动指示 -->
+                <div id="todown" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce" style="display: block !important;">
+                    <a href="#about" class="text-primary/70 hover:text-primary transition-colors duration-300">
+                        <i class="fas fa-chevron-down text-2xl" style="display: block !important; color: #8A7968;"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- 关于我部分 -->
+        <section id="about" class="min-h-screen py-20 relative snap-start">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold text-dark mb-4 section-title">关于我</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="relative about-image-container">
+                        <div class="w-full h-[400px] md:h-[500px] organic-shape overflow-hidden shadow-xl">
+                            <img src="img/author.png" alt="Chenes的工作环境" class="w-full h-full object-cover">
+                        </div>
+                        <!-- 装饰元素 -->
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 organic-shape-alt"></div>
+                    </div>
+                    
+                    <div class="space-y-6 about-content">
+                        <p class="text-lg text-dark/80 leading-relaxed" style="text-indent: 2em;">
+                            本人 Chenes，生于古赤壁之墟咸宁，乡间田野玩泥巴长大，年幼时相貌俊俏，偏爱文学、笔墨，然童心顽劣，每逃学似飞鸿振翅，后蒙父母棍棒夹糖，方收顽心，伏案数载，幸得本科一纸文凭。年二十时，得校招所录，怀鸿鹄之志，负笈南行，只身越岭千里抵粤，投身IT业十余载，虽无大福，却也安乐，现居羊城，谋得电网软件项目经理一职，日出而作，日落不息...
+                        </p>
+                        <p class="text-lg text-dark/80 leading-relaxed" style="text-indent: 2em;">
+                            平生所好有四：一曰墨香润心，每得闲暇，必研墨挥毫；二曰 AI 驯诗，尝以算法为舟，渡于词海，令机器缀句成篇； 三曰佳肴慰胃，灶间烟火起，釜中滋味生，虽无大厨之名，自得调鼎之乐；四曰 LOL 竞技，偶周休闲暇，邀好友聚于虚拟之域，执鼠标如握剑，敲键盘似击节，释一日劳烦。
+                        </p>
+                        <p class="text-lg text-dark/80 leading-relaxed" style="text-indent: 2em;">
+                          
+                            顾往昔如梦如歌，稚子嬉泥、青衿苦读、客居岭南，皆如过眼云烟，历历在目而不可追。展未来，愿借半生碌碌，换一世清宁。晨起听松风，暮归伴鹤眠，墨池常满，诗稿渐厚，佳肴常有，佳人常伴，如此足矣。
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-code text-primary text-xl"></i>
+                                <span class="font-medium"> </span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-pen-fancy text-primary text-xl"></i>
+                                <span class="font-medium"> </span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-gamepad text-primary text-xl"></i>
+                                <span class="font-medium"> </span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-lightbulb text-primary text-xl"></i>
+                                <span class="font-medium">.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 兴趣爱好部分 -->
+        <section id="hobbies" class="min-h-screen py-20 bg-gradient-to-b from-secondary/10 to-light relative snap-start">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold text-dark mb-4 section-title">兴趣爱好</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+                    <p class="mt-4 text-lg text-dark/70 max-w-2xl mx-auto">
+                        生活不止有代码，还有墨香与游戏的激情
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- 书法 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/43e48bc241afa5d8817488cb432fdbbd.png" alt="书法作品" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-pen-fancy text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold mb-3 text-dark">书法艺术</h3>
+                            <p class="text-dark/70 mb-4">
+                                书法是我与传统文化对话的方式，从楷书的端庄到行书的流畅，每一笔都让我感受到中华文化的博大精深。
+                            </p>
+                            <a href="javascript:void(0);" class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
+                                查看作品 <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 编程 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/6ae0e1663d7d8f578c7dcf593413e016.png" alt="编程工作" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-code text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold mb-3 text-dark">编程开发</h3>
+                            <p class="text-dark/70 mb-4">
+                                编程是我的职业，也是我的爱好。我喜欢通过代码将创意变为现实，探索新技术并解决复杂问题。
+                            </p>
+                            <a href="javascript:void(0);" class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
+                                查看项目 <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- 游戏 -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group">
+                        <div class="h-56 overflow-hidden">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/07967b229bef6a2e1c27478c82e23459.png" alt="游戏竞技" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-gamepad text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold mb-3 text-dark">竞技游戏</h3>
+                            <p class="text-dark/70 mb-4">
+                                游戏对我而言不仅是放松，更是锻炼策略思维和团队协作的方式。我尤其喜欢MOBA和策略类游戏。
+                            </p>
+                            <a href="javascript:void(0);" class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
+                                游戏战绩 <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 技能展示 -->
+                <div class="mt-24">
+                    <h3 class="text-2xl font-serif font-bold text-center mb-12 text-dark">我的技能</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                        <!-- 技术技能 -->
+                        <div>
+                            <h4 class="text-xl font-medium mb-6 flex items-center">
+                                <i class="fas fa-laptop-code text-primary mr-3"></i> 技术技能
+                            </h4>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">前端开发</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">UI/UX设计</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">JavaScript</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">响应式设计</span>
+                                        <span>80%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 个人技能 -->
+                        <div>
+                            <h4 class="text-xl font-medium mb-6 flex items-center">
+                                <i class="fas fa-user-circle text-primary mr-3"></i> 个人技能
+                            </h4>
+                            <div class="space-y-6">
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">书法创作</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">游戏竞技</span>
+                                        <span>70%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-accent h-2.5 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">问题解决</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-accent h-2.5 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-2">
+                                        <span class="font-medium">团队协作</span>
+                                        <span>85%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-accent h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 作品集部分 -->
+        <section id="gallery" class="min-h-screen py-20 relative snap-start">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold text-dark mb-4 section-title">作品集</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+                    <p class="mt-4 text-lg text-dark/70 max-w-2xl mx-auto">
+                        记录我的创作与探索，代码、书法与游戏的融合
+                    </p>
+                </div>
+                
+                <!-- 作品分类 -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="gallery-filter active px-6 py-2 rounded-full bg-primary text-white transition-all duration-300" data-filter="all">全部作品</button>
+                    <button class="gallery-filter px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-all duration-300" data-filter="code">编程项目</button>
+                    <button class="gallery-filter px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-all duration-300" data-filter="calligraphy">书法作品</button>
+                    <button class="gallery-filter px-6 py-2 rounded-full bg-white text-dark hover:bg-primary/10 transition-all duration-300" data-filter="game">游戏设计</button>
+                </div>
+                
+                <!-- 作品网格 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- 编程项目1 -->
+                    <div class="gallery-item code group" data-category="code">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/c4c9421dbeaba7a943f232ca9c15d50f.png" alt="响应式网站设计" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 class="text-white text-xl font-bold mb-2">响应式电商网站</h3>
+                                <p class="text-white/80 mb-4">使用HTML、CSS和JavaScript构建的全响应式电商平台</p>
+                                <a href="javascript:void(0);" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm hover:bg-primary/90 transition-colors duration-300">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 书法作品1 -->
+                    <div class="gallery-item calligraphy group" data-category="calligraphy">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg">
+                            <img src="./img/sf/01-new.png" alt="书法作品" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 class="text-white text-xl font-bold mb-2">行书 - 南宁感悟</h3>
+                                <p class="text-white/80 mb-4">如果爱情可以定格在某个时刻长期保存，我想世界上就没有那么多分别了吧</p>
+                                <a href="javascript:void(0);" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm hover:bg-primary/90 transition-colors duration-300">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 游戏设计1 -->
+                    <div class="gallery-item game group" data-category="game">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/c981785cd82e5d46fbff0df48f015fbc.png" alt="游戏UI设计" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 class="text-white text-xl font-bold mb-2">RPG游戏UI设计</h3>
+                                <p class="text-white/80 mb-4">为独立游戏设计的用户界面和交互系统</p>
+                                <a href="javascript:void(0);" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm hover:bg-primary/90 transition-colors duration-300">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 编程项目2 -->
+                    <div class="gallery-item code group" data-category="code">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/3676016bae60470744a192016db5b00e.png" alt="数据可视化项目" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 class="text-white text-xl font-bold mb-2">数据可视化仪表板</h3>
+                                <p class="text-white/80 mb-4">基于ECharts的交互式数据可视化平台</p>
+                                <a href="javascript:void(0);" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm hover:bg-primary/90 transition-colors duration-300">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 书法作品2 -->
+                    <div class="gallery-item calligraphy group" data-category="calligraphy">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg">
+                            <img src="./img/sf/02-new.png" alt="书法绘画结合作品" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 class="text-white text-xl font-bold mb-2">行书 - 南宁感悟</h3>
+                                <p class="text-white/80 mb-4">我们可能会对很多人心动，可最后只有一个人让你心定。</p>
+                                <a href="javascript:void(0);" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm hover:bg-primary/90 transition-colors duration-300">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 游戏设计2 -->
+                    <div class="gallery-item game group" data-category="game">
+                        <div class="relative overflow-hidden rounded-xl shadow-lg">
+                            <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/46e9d922b39f6e98dc9322e7d1d0d811.png" alt="桌游设计" class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                                <h3 class="text-white text-xl font-bold mb-2">策略桌游设计</h3>
+                                <p class="text-white/80 mb-4">融合中国传统文化元素的策略桌游原型</p>
+                                <a href="javascript:void(0);" class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm hover:bg-primary/90 transition-colors duration-300">
+                                    查看详情
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 成长经历部分 -->
+        <section style="display: none;" id="growth-experience" class="min-h-screen py-20 bg-gradient-to-b from-secondary/10 to-light relative snap-start">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold text-dark mb-4 section-title">成长经历</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+                    <p class="mt-4 text-lg text-dark/70 max-w-2xl mx-auto">
+                        我的职业生涯，一步一个脚印的成长轨迹
+                    </p>
+                </div>
+
+                <div class="max-w-3xl mx-auto relative">
+                    <div class="absolute left-3 md:left-1/2 transform md:-translate-x-1/2 w-0.5 h-full bg-secondary/30 hidden md:block"></div>
+
+                    <div class="space-y-12">
+                        <!-- 2023年 -->
+                        <div class="timeline-item flex flex-col md:flex-row items-start md:items-center relative">
+                            <div class="md:w-1/2 text-right md:pr-12">
+                                <h3 class="text-2xl font-serif font-bold text-primary mb-2">2023年</h3>
+                                <p class="text-lg text-dark/80">高级项目经理</p>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                                <p class="text-dark/70 mb-4">统筹千万级项目全生命周期管理，协调技术、产品、业务多方资源，对项目结果负责。</p>
+                                <img src="img/jb.jpg" alt="项目管理成果" class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
+                            </div>
+                        </div>
+
+                        <!-- 2021年 -->
+                        <div class="timeline-item flex flex-col md:flex-row-reverse items-start md:items-center relative">
+                            <div class="md:w-1/2 text-left md:pl-12">
+                                <h3 class="text-2xl font-serif font-bold text-primary mb-2">2021年</h3>
+                                <p class="text-lg text-dark/80">资深开发工程师</p>
+                            </div>
+                            <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
+                                <p class="text-dark/70 mb-4">负责公司级技术战略落地，指导多个项目组技术方向，解决跨项目技术瓶颈。</p>
+                                <img src="img/zs.png" alt="技术战略成果" class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
+                            </div>
+                        </div>
+
+                        <!-- 2018年 -->
+                        <div class="timeline-item flex flex-col md:flex-row items-start md:items-center relative">
+                            <div class="md:w-1/2 text-right md:pr-12">
+                                <h3 class="text-2xl font-serif font-bold text-primary mb-2">2018年</h3>
+                                <p class="text-lg text-dark/80">高级开发工程师</p>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                                <p class="text-dark/70 mb-4">担任技术攻坚组负责人，主导核心技术选型与架构设计。</p>
+                                <img src="img/jg.png" alt="架构设计成果" class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
+                            </div>
+                        </div>
+
+                        <!-- 2017年 -->
+                        <div class="timeline-item flex flex-col md:flex-row-reverse items-start md:items-center relative">
+                            <div class="md:w-1/2 text-left md:pl-12">
+                                <h3 class="text-2xl font-serif font-bold text-primary mb-2">2017年</h3>
+                                <p class="text-lg text-dark/80">产品开发组长</p>
+                            </div>
+                            <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
+                                <p class="text-dark/70 mb-4">统筹整条产品线的技术开发，协调前后端资源，参与产品规划。</p>
+                                <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=产品规划截图" alt="产品规划成果" class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
+                            </div>
+                        </div>
+
+                        <!-- 2016年 -->
+                        <div class="timeline-item flex flex-col md:flex-row items-start md:items-center relative">
+                            <div class="md:w-1/2 text-right md:pr-12">
+                                <h3 class="text-2xl font-serif font-bold text-primary mb-2">2016年</h3>
+                                <p class="text-lg text-dark/80">中级开发工程师</p>
+                            </div>
+                            <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                                <p class="text-dark/70 mb-4">独立负责 2 个产品线的功能迭代，参与技术方案设计。</p>
+                                <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=功能迭代截图" alt="功能迭代成果" class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
+                            </div>
+                        </div>
+
+                        <!-- 2013年 -->
+                        <div class="timeline-item flex flex-col md:flex-row-reverse items-start md:items-center relative">
+                            <div class="md:w-1/2 text-left md:pl-12">
+                                <h3 class="text-2xl font-serif font-bold text-primary mb-2">2013年</h3>
+                                <p class="text-lg text-dark/80">开发小组长</p>
+                            </div>
+                            <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
+                                <p class="text-dark/70 mb-4">带领 3 人小组负责核心功能模块开发，参与需求评审与代码优化。</p>
+                                <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=团队管理截图" alt="团队管理成果" class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 联系我部分 -->
+        <section id="contact" class="min-h-screen py-20 bg-gradient-to-b from-light to-secondary/10 relative snap-start">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-serif font-bold text-dark mb-4 section-title">联系我</h2>
+                    <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+                    <p class="mt-4 text-lg text-dark/70 max-w-2xl mx-auto">
+                        无论你是想合作项目、交流技术，还是讨论书法与游戏，都欢迎与我联系。
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-serif font-bold mb-6 text-dark">发送消息</h3>
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-dark/80 mb-2 font-medium">姓名</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300" placeholder="请输入你的姓名" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-dark/80 mb-2 font-medium">邮箱</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300" placeholder="请输入你的邮箱" required>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-dark/80 mb-2 font-medium">留言</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 resize-none" placeholder="请输入你的留言内容" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1 font-medium">
+                                发送消息
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-serif font-bold mb-6 text-dark">联系方式</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-envelope text-primary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-dark mb-1">邮箱</h4>
+                                        <p class="text-dark/70">chenes365@163.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-map-marker-alt text-primary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-dark mb-1">地址</h4>
+                                        <p class="text-dark/70">广东省广州市黄埔区科学城</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-clock text-primary text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-dark mb-1">工作时间</h4>
+                                        <p class="text-dark/70">周一至周五: 9:00 - 18:00</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-12">
+                                <h3 class="text-2xl font-serif font-bold mb-6 text-dark">关注我</h3>
+                                <div class="flex space-x-4">
+                                    <a href="javascript:void(0);" class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+                                        <i class="fab fa-github text-primary text-xl"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+                                        <i class="fab fa-codepen text-primary text-xl"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+                                        <i class="fab fa-instagram text-primary text-xl"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300">
+                                        <i class="fab fa-weixin text-primary text-xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12">
+                            <div class="bg-white p-6 rounded-2xl shadow-lg">
+                                <h4 class="font-medium text-dark mb-4">我的座右铭</h4>
+                                <p class="text-dark/80 font-handwriting text-lg italic">
+                                    "让人安静的日子，就是好日子"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 页脚 -->
+        <footer class="bg-dark text-white py-12">
+            <div class="container mx-auto px-4 md:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-2xl font-handwriting text-white mb-2">素年锦时</h3>
+                        <p class="text-white/60">生活不是为了赶路，是让我们感受路</p>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center">
+                        <a href="#home" class="text-white/70 hover:text-white transition-colors duration-300">首页</a>
+                        <a href="#about" class="text-white/70 hover:text-white transition-colors duration-300">关于我</a>
+                        <a href="#hobbies" class="text-white/70 hover:text-white transition-colors duration-300">兴趣爱好</a>
+                        <a href="#gallery" class="text-white/70 hover:text-white transition-colors duration-300">作品集</a>
+                        <a href="#growth-experience"  style="display: none;"  class="text-white/70 hover:text-white transition-colors duration-300">成长经历</a>
+                        <a href="#contact" class="text-white/70 hover:text-white transition-colors duration-300">联系我</a>
+                    </div>
+                </div>
+                
+                <div class="border-t border-white/10 mt-8 pt-8 text-center text-white/50 text-sm">
+                    <p>© 2025 Chenes的个人网站. 保留所有权利.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary/90 z-50">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- 背景音乐 -->
+    <audio id="background-music" src="music/bgsound.mp3" loop preload="auto"></audio>
+    <!-- JavaScript -->
+    <script>
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            // 移动端菜单
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            // 返回顶部按钮
+            const backToTopButton = document.getElementById('back-to-top');
+            // 首页动画元素
+            const heroTitle = document.getElementById('hero-title');
+            const heroSubtitle = document.getElementById('hero-subtitle');
+            const heroCta = document.getElementById('hero-cta');
+            const heroImage = document.getElementById('hero-image');
+            // 引用文字
+            const quoteText = document.querySelector('.quote-text');
+            // 作品集筛选
+            const galleryFilters = document.querySelectorAll('.gallery-filter');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            // 联系表单
+            const contactForm = document.getElementById('contact-form');
+            // 滚动动画元素
+            const sectionTitles = document.querySelectorAll('.section-title');
+            const aboutImage = document.querySelector('.about-image-container');
+            const aboutContent = document.querySelector('.about-content');
+            
+            // 初始化首页动画
+            function initHeroAnimation() {
+                if (heroTitle) {
+                    setTimeout(() => {
+                        heroTitle.style.opacity = '1';
+                        heroTitle.style.transform = 'translateY(0)';
+                    }, 300);
+                }
+                
+                if (heroSubtitle) {
+                    setTimeout(() => {
+                        heroSubtitle.style.opacity = '1';
+                        heroSubtitle.style.transform = 'translateY(0)';
+                    }, 600);
+                }
+                
+                if (heroCta) {
+                    setTimeout(() => {
+                        heroCta.style.opacity = '1';
+                        heroCta.style.transform = 'translateY(0)';
+                    }, 900);
+                }
+                
+                if (heroImage) {
+                    setTimeout(() => {
+                        heroImage.style.opacity = '1';
+                        heroImage.style.transform = 'scale(1)';
+                    }, 1200);
+                }
+            }
+            
+            // 立即执行动画初始化
+            initHeroAnimation();
+            
+            // 备用方案：如果3秒后仍然隐藏，强制显示
+            setTimeout(() => {
+                if (heroTitle && heroTitle.style.opacity !== '1') {
+                    heroTitle.style.opacity = '1';
+                    heroTitle.style.transform = 'translateY(0)';
+                }
+                if (heroSubtitle && heroSubtitle.style.opacity !== '1') {
+                    heroSubtitle.style.opacity = '1';
+                    heroSubtitle.style.transform = 'translateY(0)';
+                }
+                if (heroCta && heroCta.style.opacity !== '1') {
+                    heroCta.style.opacity = '1';
+                    heroCta.style.transform = 'translateY(0)';
+                }
+                if (heroImage && heroImage.style.opacity !== '1') {
+                    heroImage.style.opacity = '1';
+                    heroImage.style.transform = 'scale(1)';
+                }
+            }, 3000);
+            
+            // 引用文字动画 (已停用打字机动画，由跑马灯替代)
+            // setTimeout(() => {
+            //     const text = quoteText.textContent;
+            //     quoteText.textContent = '';
+            //     let i = 0;
+            //     
+            //     const typingInterval = setInterval(() => {
+            //         if (i < text.length) {
+            //             quoteText.textContent += text.charAt(i);
+            //             i++;
+            //         } else {
+            //             clearInterval(typingInterval);
+            //         }
+            //     }, 30);
+            // }, 1000);
+            
+            // 导航栏滚动效果
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-md', 'py-2');
+                    navbar.classList.remove('py-4');
+                    
+                    // 显示返回顶部按钮
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-md', 'py-2');
+                    navbar.classList.add('py-4');
+                    
+                    // 隐藏返回顶部按钮
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                }
+                
+                // 滚动动画
+                checkScrollAnimation();
+            });
+            
+            // 移动端菜单切换
+            menuToggle.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('opacity-0')) {
+                    mobileMenu.classList.remove('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    mobileMenu.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    menuToggle.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+                    mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+            
+            // 移动端菜单项点击关闭菜单 (已整合到平滑滚动逻辑中)
+            // const mobileMenuItems = mobileMenu.querySelectorAll('a');
+            // mobileMenuItems.forEach(item => {
+            //     item.addEventListener('click', () => {
+            //         mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+            //         mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            //         menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            //     });
+            // });
+            
+            // 平滑滚动
+            const scrollContainer = document.querySelector('.scroll-container');
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#' || !targetId.startsWith('#')) return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement && scrollContainer) {
+                        e.preventDefault();
+                        // 关闭移动端菜单 (如果打开)
+                        if (window.innerWidth < 768) {
+                            const mobileMenu = document.getElementById('mobile-menu');
+                            const menuToggle = document.getElementById('menu-toggle');
+                            if (mobileMenu && menuToggle) {
+                                mobileMenu.classList.add('opacity-0', '-translate-y-full', 'pointer-events-none');
+                                mobileMenu.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                            }
+                        }
+                        // 计算目标section相对scrollContainer顶部的距离
+                        const containerRect = scrollContainer.getBoundingClientRect();
+                        const targetRect = targetElement.getBoundingClientRect();
+                        const offset = targetRect.top - containerRect.top + scrollContainer.scrollTop - 80; // 80px 是导航条高度
+                        scrollContainer.scrollTo({
+                            top: offset,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 返回顶部
+            backToTopButton.addEventListener('click', () => {
+                scrollContainer.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 作品集筛选
+            galleryFilters.forEach(filter => {
+                filter.addEventListener('click', () => {
+                    // 移除所有筛选按钮的active状态
+                    galleryFilters.forEach(btn => {
+                        btn.classList.remove('active', 'bg-primary', 'text-white');
+                        btn.classList.add('bg-white', 'text-dark', 'hover:bg-primary/10');
+                    });
+                    
+                    // 添加当前筛选按钮的active状态
+                    filter.classList.add('active', 'bg-primary', 'text-white');
+                    filter.classList.remove('bg-white', 'text-dark', 'hover:bg-primary/10');
+                    
+                    const filterValue = filter.getAttribute('data-filter');
+                    
+                    // 筛选作品
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            // 添加淡入动画
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            // 添加淡出动画
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // 联系表单提交
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // 简单表单验证
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                if (!name || !email || !message) {
+                    alert('请填写所有必填字段');
+                    return;
+                }
+                
+                // 模拟表单提交
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> 发送中...';
+                
+                setTimeout(() => {
+                    alert('消息发送成功！感谢您的留言，我会尽快回复您。');
+                    contactForm.reset();
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                }, 1500);
+            });
+            
+            // 检查滚动动画
+            function checkScrollAnimation() {
+                const scrollPosition = scrollContainer.scrollTop + scrollContainer.clientHeight * 0.8; // 基于scrollContainer的滚动位置
+                
+                // 部分标题动画
+                sectionTitles.forEach(title => {
+                    if (scrollPosition > title.offsetTop && !title.classList.contains('animated')) {
+                        title.classList.add('animated');
+                        title.style.opacity = '0';
+                        title.style.transform = 'translateY(20px)';
+                        title.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                        
+                        setTimeout(() => {
+                            title.style.opacity = '1';
+                            title.style.transform = 'translateY(0)';
+                        }, 100);
+                    }
+                });
+                
+                // 关于我部分动画
+                if (aboutImage && scrollPosition > aboutImage.offsetTop && !aboutImage.classList.contains('animated')) {
+                    aboutImage.classList.add('animated');
+                    aboutImage.style.opacity = '0';
+                    aboutImage.style.transform = 'translateX(-30px)';
+                    aboutImage.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                    
+                    setTimeout(() => {
+                        aboutImage.style.opacity = '1';
+                        aboutImage.style.transform = 'translateX(0)';
+                    }, 200);
+                }
+                
+                if (aboutContent && scrollPosition > aboutContent.offsetTop - 100 && !aboutContent.classList.contains('animated')) {
+                    aboutContent.classList.add('animated');
+                    aboutContent.style.opacity = '0';
+                    aboutContent.style.transform = 'translateX(30px)';
+                    aboutContent.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+                    
+                    setTimeout(() => {
+                        aboutContent.style.opacity = '1';
+                        aboutContent.style.transform = 'translateX(0)';
+                    }, 400);
+                }
+            }
+            
+            // 初始化检查一次滚动动画
+            checkScrollAnimation();
+
+            // 跑马灯效果实现
+            const marqueeText = document.getElementById('marquee-text');
+            const marqueeSpan = document.getElementById('marquee-span');
+            const featherCursor = document.getElementById('feather-cursor');
+            const quoteContainer = document.querySelector('.quote-container');
+            
+            let typewriterIndex = 0;
+            let typewriterStarted = false;
+            let typewriterInterval = null;
+            const originalText = marqueeSpan.textContent;
+            
+            function isQuoteInViewport() {
+                const rect = quoteContainer.getBoundingClientRect();
+                return rect.top < window.innerHeight && rect.bottom > 0;
+            }
+            
+            function startTypewriter() {
+                if (typewriterStarted) return;
+                typewriterStarted = true;
+                
+                // 清空内容，显示羽毛光标
+                marqueeSpan.textContent = '';
+                featherCursor.style.display = 'inline-block';
+                typewriterIndex = 0;
+                
+                typewriterInterval = setInterval(() => {
+                    if (typewriterIndex < originalText.length) {
+                        marqueeSpan.textContent += originalText.charAt(typewriterIndex);
+                        typewriterIndex++;
+                    } else {
+                        clearInterval(typewriterInterval);
+                        // 打字完成后，隐藏光标，显示完整内容
+                        setTimeout(() => {
+                            featherCursor.style.display = 'none';
+                            marqueeSpan.textContent = originalText;
+                            // 确保文本居中显示
+                            marqueeText.style.position = 'relative';
+                            marqueeText.style.left = 'auto';
+                            marqueeText.style.textAlign = 'center';
+                            marqueeText.style.whiteSpace = 'normal';
+                            marqueeText.style.wordWrap = 'break-word';
+                        }, 500);
+                    }
+                }, 80);
+            }
+            
+            function checkTypewriter() {
+                if (isQuoteInViewport() && !typewriterStarted) {
+                    startTypewriter();
+                }
+            }
+            
+            // 监听滚动事件
+            scrollContainer.addEventListener('scroll', checkTypewriter);
+            window.addEventListener('scroll', checkTypewriter);
+            
+            // 初始检查
+            setTimeout(checkTypewriter, 500);
+
+            // 背景音乐控制
+            const backgroundMusic = document.getElementById('background-music');
+            const musicToggle = document.getElementById('music-toggle');
+            const musicToggleMobile = document.getElementById('music-toggle-mobile');
+            const musicIcon = document.getElementById('music-icon');
+            const musicIconMobile = document.getElementById('music-icon-mobile');
+            
+            let isMusicPlaying = false;
+            
+            // 确保图标显示
+            if (musicIcon) {
+                musicIcon.style.display = 'block';
+                musicIcon.style.visibility = 'visible';
+            }
+            if (musicIconMobile) {
+                musicIconMobile.style.display = 'block';
+                musicIconMobile.style.visibility = 'visible';
+            }
+            
+            // 设置音量
+            backgroundMusic.volume = 0.3;
+            
+            function toggleMusic() {
+                if (isMusicPlaying) {
+                    backgroundMusic.pause();
+                    musicIcon.className = 'fas fa-music text-primary text-lg';
+                    musicIconMobile.className = 'fas fa-music text-primary text-lg';
+                    musicToggle.title = '播放背景音乐';
+                    musicToggleMobile.title = '播放背景音乐';
+                    isMusicPlaying = false;
+                } else {
+                    backgroundMusic.play().catch(e => {
+                        console.log('音乐播放失败:', e);
+                    });
+                    musicIcon.className = 'fas fa-pause text-primary text-lg';
+                    musicIconMobile.className = 'fas fa-pause text-primary text-lg';
+                    musicToggle.title = '暂停背景音乐';
+                    musicToggleMobile.title = '暂停背景音乐';
+                    isMusicPlaying = true;
+                }
+            }
+            
+            // 绑定音乐控制事件
+            musicToggle.addEventListener('click', toggleMusic);
+            musicToggleMobile.addEventListener('click', toggleMusic);
+            
+            // 音乐加载完成后自动播放
+            backgroundMusic.addEventListener('canplaythrough', () => {
+                // 由于浏览器政策，需要用户交互才能播放音频
+                // 这里不自动播放，等待用户点击
+            });
+            
+            // 音乐播放结束时重置图标
+            backgroundMusic.addEventListener('ended', () => {
+                musicIcon.className = 'fas fa-music text-primary text-lg';
+                musicIconMobile.className = 'fas fa-music text-primary text-lg';
+                isMusicPlaying = false;
+            });
+            
+            // 鼠标点击渐变爱心冒泡飘动
+            function createHeart(x, y) {
+                const heart = document.createElement('div');
+                heart.style.position = 'fixed';
+                heart.style.left = x - 16 + 'px';
+                heart.style.top = y - 16 + 'px';
+                heart.style.width = '32px';
+                heart.style.height = '32px';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = 9999;
+                heart.style.opacity = 1;
+                heart.style.transition = 'transform 1.2s cubic-bezier(.4,0,.2,1), opacity 1.2s';
+                heart.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff7eb3"/><stop offset="100%" stop-color="#ff758c"/></linearGradient></defs><path d="M16 29s-13-8.35-13-16.5C3 6.42 8.42 3 13.5 7.5 18.58 3 24 6.42 24 12.5 24 20.65 16 29 16 29z" fill="url(#g)"/></svg>`;
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    heart.style.transform = `translateY(-80px) scale(1.3) rotate(${Math.random()*40-20}deg)`;
+                    heart.style.opacity = 0;
+                }, 10);
+                setTimeout(() => heart.remove(), 1200);
+            }
+            
+            document.addEventListener('click', function(e) {
+                // 避免在音乐按钮上显示爱心
+                if (!e.target.closest('#music-toggle') && !e.target.closest('#music-toggle-mobile')) {
+                    createHeart(e.clientX, e.clientY);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
