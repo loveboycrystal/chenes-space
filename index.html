@@ -306,6 +306,11 @@
                 }
             }
             
+            /* 图片懒加载样式 */
+            img[loading="lazy"] {
+                transition: opacity 0.3s ease-in-out;
+            }
+            
             /* 春雨绵绵动效 */
             .raindrop {
                 position: fixed;
@@ -332,6 +337,60 @@
                 }
                 100% {
                     transform: translateY(100vh);
+                    opacity: 0;
+                }
+            }
+            
+            /* 雨滴溅落效果 */
+            .rain-splash {
+                position: fixed;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 9;
+                width: 6px;
+                height: 6px;
+                background: rgba(138, 121, 104, 0.2);
+                border-radius: 50%;
+                transform: scale(0);
+                opacity: 0.8;
+                animation: splash 0.6s ease-out forwards;
+            }
+            
+            @keyframes splash {
+                0% {
+                    transform: scale(0);
+                    opacity: 0.8;
+                }
+                80% {
+                    transform: scale(1);
+                    opacity: 0.6;
+                }
+                100% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+            
+            /* 雨滴波纹效果 */
+            .rain-ripple {
+                position: fixed;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 8;
+                border: 1px solid rgba(138, 121, 104, 0.3);
+                border-radius: 50%;
+                transform: scale(0);
+                opacity: 0.7;
+                animation: ripple 1s ease-out forwards;
+            }
+            
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: scale(4);
                     opacity: 0;
                 }
             }
@@ -505,7 +564,7 @@
                     <div class="relative about-image-container">
                         <div class="w-full h-[400px] md:h-[500px] organic-shape overflow-hidden shadow-xl">
                             <img src="img/aboutMe.jpg" alt="Chenes的工作环境" style="opacity: 0.9;"
-                                class="w-full h-full object-cover">
+                                class="w-full h-full object-cover" loading="lazy">
                         </div>
                         <!-- 装饰元素 -->
                         <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 organic-shape-alt"></div>
@@ -520,7 +579,7 @@
                             三曰佳肴慰胃，晨起携篮入市，择翠剪青，归而披襟赴灶，虽无大厨之名，亦能自得调鼎之乐；四曰 LOL 竞技，周休之隙，邀好友聚于召唤师峡谷，开黑一局，鼠标作长剑，键盘成战鼓，释一日劳烦。
                         </p>
                         <p class="horizontal-text text-lg text-dark/80">
-                            顾往昔如梦如歌，稚子嬉泥、青衿苦读、客居岭南，皆如过眼云烟，历历在目而不可追。展未来，愿借半生碌碌，换一世清宁,晨起听松风，暮归伴鹤眠，墨池常满，诗稿渐厚，佳肴常有，佳人常伴，如此足矣。
+                            展未来，愿借半生碌碌，换一世清宁,晨起听松风，暮归伴鹤眠，墨池常满，诗稿渐厚，佳肴常有，佳人常伴，如此足矣。
                         </p>
                     </div>
                 </div>
@@ -548,7 +607,7 @@
                                     class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
                                     <div class="h-56 overflow-hidden">
                                         <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/43e48bc241afa5d8817488cb432fdbbd.png"
-                                            alt="书法作品"
+                                            alt="书法作品" loading="lazy"
                                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                                     </div>
                                     <div class="p-6">
@@ -568,13 +627,38 @@
                                 </div>
                             </div>
 
+                            <!-- 运动 -->
+                            <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
+                                <div
+                                    class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
+                                    <div class="h-56 overflow-hidden">
+                                        <img src="./img/sport-me.png" alt="运动健身" loading="lazy"
+                                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                    </div>
+                                    <div class="p-6">
+                                        <div
+                                            class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                            <i class="fas fa-running text-primary text-xl"></i>
+                                        </div>
+                                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">运动健身</h3>
+                                        <p class="text-dark/70 mb-4">
+                                            晨跑、健身是我保持活力的方式，在运动中释放压力，在汗水中找到平衡。强健的体魄是探索世界的基础。
+                                        </p>
+                                        <a href="javascript:void(0);"
+                                            class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
+                                            健身日志 <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- 编程 -->
                             <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
                                 <div
                                     class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
                                     <div class="h-56 overflow-hidden">
                                         <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/6ae0e1663d7d8f578c7dcf593413e016.png"
-                                            alt="编程工作"
+                                            alt="编程工作" loading="lazy"
                                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                                     </div>
                                     <div class="p-6">
@@ -600,7 +684,7 @@
                                     class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
                                     <div class="h-56 overflow-hidden">
                                         <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/07967b229bef6a2e1c27478c82e23459.png"
-                                            alt="游戏竞技"
+                                            alt="游戏竞技" loading="lazy"
                                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                                     </div>
                                     <div class="p-6">
@@ -620,35 +704,11 @@
                                 </div>
                             </div>
 
-                            <!-- 运动 -->
-                            <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
-                                <div
-                                    class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
-                                    <div class="h-56 overflow-hidden">
-                                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-                                            alt="运动健身"
-                                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                    </div>
-                                    <div class="p-6">
-                                        <div
-                                            class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                                            <i class="fas fa-running text-primary text-xl"></i>
-                                        </div>
-                                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">运动健身</h3>
-                                        <p class="text-dark/70 mb-4">
-                                            晨跑、健身是我保持活力的方式，在运动中释放压力，在汗水中找到平衡。强健的体魄是探索世界的基础。
-                                        </p>
-                                        <a href="javascript:void(0);"
-                                            class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
-                                            健身日志 <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
-                        
+
                         <!-- 左右箭头控制 -->
-                        
+
                     </div>
 
                     <!-- 滑动控制点 -->
@@ -792,7 +852,7 @@
                     <div class="gallery-item code group" data-category="code">
                         <div class="relative overflow-hidden rounded-xl shadow-lg">
                             <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/c4c9421dbeaba7a943f232ca9c15d50f.png"
-                                alt="响应式网站设计"
+                                alt="响应式网站设计" loading="lazy"
                                 class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -809,7 +869,7 @@
                     <!-- 书法作品1 -->
                     <div class="gallery-item calligraphy group" data-category="calligraphy">
                         <div class="relative overflow-hidden rounded-xl shadow-lg">
-                            <img src="./img/sf/01-new.png" alt="书法作品"
+                            <img src="./img/sf/01-new.png" alt="书法作品" loading="lazy"
                                 class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -827,7 +887,7 @@
                     <div class="gallery-item game group" data-category="game">
                         <div class="relative overflow-hidden rounded-xl shadow-lg">
                             <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/c981785cd82e5d46fbff0df48f015fbc.png"
-                                alt="游戏UI设计"
+                                alt="游戏UI设计" loading="lazy"
                                 class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -845,7 +905,7 @@
                     <div class="gallery-item code group" data-category="code">
                         <div class="relative overflow-hidden rounded-xl shadow-lg">
                             <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/3676016bae60470744a192016db5b00e.png"
-                                alt="数据可视化项目"
+                                alt="数据可视化项目" loading="lazy"
                                 class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -862,7 +922,7 @@
                     <!-- 书法作品2 -->
                     <div class="gallery-item calligraphy group" data-category="calligraphy">
                         <div class="relative overflow-hidden rounded-xl shadow-lg">
-                            <img src="./img/sf/02-new.png" alt="书法绘画结合作品"
+                            <img src="./img/sf/02-new.png" alt="书法绘画结合作品" loading="lazy"
                                 class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -880,7 +940,7 @@
                     <div class="gallery-item game group" data-category="game">
                         <div class="relative overflow-hidden rounded-xl shadow-lg">
                             <img src="https://design.gemcoder.com/staticResource/echoAiSystemImages/46e9d922b39f6e98dc9322e7d1d0d811.png"
-                                alt="桌游设计"
+                                alt="桌游设计" loading="lazy"
                                 class="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
@@ -923,7 +983,7 @@
                             </div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">统筹千万级项目全生命周期管理，协调技术、产品、业务多方资源，对项目结果负责。</p>
-                                <img src="img/jb.jpg" alt="项目管理成果"
+                                <img src="img/jb.jpg" alt="项目管理成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
                         </div>
@@ -937,7 +997,7 @@
                             </div>
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">负责公司级技术战略落地，指导多个项目组技术方向，解决跨项目技术瓶颈。</p>
-                                <img src="img/zs.png" alt="技术战略成果"
+                                <img src="img/zs.png" alt="技术战略成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
                         </div>
@@ -950,7 +1010,7 @@
                             </div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">担任技术攻坚组负责人，主导核心技术选型与架构设计。</p>
-                                <img src="img/jg.png" alt="架构设计成果"
+                                <img src="img/jg.png" alt="架构设计成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
                         </div>
@@ -965,6 +1025,7 @@
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">统筹整条产品线的技术开发，协调前后端资源，参与产品规划。</p>
                                 <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=产品规划截图" alt="产品规划成果"
+                                    loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
                         </div>
@@ -978,6 +1039,7 @@
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">独立负责 2 个产品线的功能迭代，参与技术方案设计。</p>
                                 <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=功能迭代截图" alt="功能迭代成果"
+                                    loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
                         </div>
@@ -992,6 +1054,7 @@
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">带领 3 人小组负责核心功能模块开发，参与需求评审与代码优化。</p>
                                 <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=团队管理截图" alt="团队管理成果"
+                                    loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
                         </div>
@@ -1450,8 +1513,8 @@
                 rainContainer.style.zIndex = '1';
                 document.body.appendChild(rainContainer);
 
-                // 创建100滴雨
-                const raindropsCount = 10;
+                // 创建雨滴
+                const raindropsCount = 15;
 
                 for (let i = 0; i < raindropsCount; i++) {
                     createRaindrop(rainContainer);
@@ -1471,9 +1534,9 @@
                 const posX = Math.random() * window.innerWidth;
 
                 // 随机大小和速度
-                const size = Math.random() * 1.5 + 0.5+1; // 0.5 - 2px
-                const length = Math.random() * 15 + 60; // 10 - 25px
-                const duration = Math.random() * 1 + 0.8; // 1 - 2s
+                const size = Math.random() * 1.5 + 0.5 + 1; // 0.5 - 3px
+                const length = Math.random() * 15 + 60; // 60 - 75px
+                const duration = Math.random() * 1 + 0.8; // 0.8 - 1.8s
 
                 raindrop.style.left = `${posX}px`;
                 raindrop.style.width = `${size}px`;
@@ -1482,10 +1545,68 @@
 
                 container.appendChild(raindrop);
 
-                // 动画结束后移除雨滴
+                // 动画结束后创建溅水效果并移除雨滴
                 setTimeout(() => {
+                    // 创建溅水效果
+                    createSplash(posX);
+                    // 移除雨滴
                     raindrop.remove();
                 }, duration * 1000);
+            }
+
+            // 创建溅水效果
+            function createSplash(posX) {
+                // 创建3-5个溅水点
+                const splashCount = Math.floor(Math.random() * 3) + 3;
+
+                for (let i = 0; i < splashCount; i++) {
+                    // 创建溅水点
+                    const splash = document.createElement('div');
+                    splash.className = 'rain-splash';
+
+                    // 随机位置（在雨滴落点附近）
+                    const splashPosX = posX + (Math.random() * 10 - 5); // 左右偏移5px
+                    const splashPosY = window.innerHeight - (Math.random() * 3); // 底部附近
+
+                    // 随机大小
+                    const size = Math.random() * 4 + 2; // 2-6px
+
+                    splash.style.left = `${splashPosX}px`;
+                    splash.style.bottom = `${splashPosY}px`;
+                    splash.style.width = `${size}px`;
+                    splash.style.height = `${size}px`;
+
+                    document.body.appendChild(splash);
+
+                    // 动画结束后移除
+                    setTimeout(() => {
+                        splash.remove();
+                    }, 600);
+                }
+
+                // 创建波纹
+                createRipple(posX);
+            }
+
+            // 创建波纹效果
+            function createRipple(posX) {
+                const ripple = document.createElement('div');
+                ripple.className = 'rain-ripple';
+
+                // 随机大小
+                const size = Math.random() * 10 + 5; // 5-15px
+
+                ripple.style.left = `${posX}px`;
+                ripple.style.bottom = '0px';
+                ripple.style.width = `${size}px`;
+                ripple.style.height = `${size}px`;
+
+                document.body.appendChild(ripple);
+
+                // 动画结束后移除
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
             }
 
             // 初始化春雨效果
@@ -1834,21 +1955,21 @@
             });
         });
         // 兴趣爱好轮播功能
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const hobbiesTrack = document.querySelector('.hobbies-track');
             const sliderDots = document.querySelectorAll('.slider-dot');
             const prevBtn = document.querySelector('.slider-prev');
             const nextBtn = document.querySelector('.slider-next');
             const hobbiesItems = document.querySelectorAll('.hobby-item');
-            
+
             let currentIndex = 0;
             const itemWidth = 100 / 3; // 一次显示3个，每个宽度为33.33%
             const totalItems = hobbiesItems.length;
             const maxIndex = Math.max(0, totalItems - 3); // 最大索引值
-            
+
             // 初始化
             updateSlider();
-            
+
             // 点击圆点切换
             sliderDots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
@@ -1856,30 +1977,30 @@
                     updateSlider();
                 });
             });
-            
+
             // 上一个
             prevBtn.addEventListener('click', () => {
                 currentIndex = Math.max(0, currentIndex - 1);
                 updateSlider();
             });
-            
+
             // 下一个
             nextBtn.addEventListener('click', () => {
                 currentIndex = Math.min(maxIndex, currentIndex + 1);
                 updateSlider();
             });
-            
+
             // 自动轮播
             let autoplayInterval = setInterval(() => {
                 currentIndex = (currentIndex >= maxIndex) ? 0 : currentIndex + 1;
                 updateSlider();
             }, 5000);
-            
+
             // 鼠标悬停时暂停自动轮播
             document.querySelector('.hobbies-carousel').addEventListener('mouseenter', () => {
                 clearInterval(autoplayInterval);
             });
-            
+
             // 鼠标离开时恢复自动轮播
             document.querySelector('.hobbies-carousel').addEventListener('mouseleave', () => {
                 autoplayInterval = setInterval(() => {
@@ -1887,12 +2008,12 @@
                     updateSlider();
                 }, 5000);
             });
-            
+
             // 更新轮播状态
             function updateSlider() {
                 // 更新轨道位置
                 hobbiesTrack.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
-                
+
                 // 更新圆点状态
                 sliderDots.forEach((dot, index) => {
                     if (index === currentIndex) {
@@ -1901,24 +2022,24 @@
                         dot.classList.remove('active');
                     }
                 });
-                
+
                 // 更新按钮状态
                 prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
                 nextBtn.style.opacity = currentIndex === maxIndex ? '0.5' : '1';
             }
         });
-        
+
         // 返回顶部按钮功能
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 创建返回顶部按钮
             const backToTopBtn = document.createElement('button');
             backToTopBtn.id = 'back-to-top';
             backToTopBtn.className = 'fixed bottom-6 right-6 bg-primary/80 hover:bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-50 transition-all duration-300 opacity-0 invisible';
             backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
             document.body.appendChild(backToTopBtn);
-            
+
             // 监听滚动事件
-            window.addEventListener('scroll', function() {
+            window.addEventListener('scroll', function () {
                 if (window.scrollY > 300) {
                     backToTopBtn.classList.remove('opacity-0', 'invisible');
                     backToTopBtn.classList.add('opacity-100', 'visible');
@@ -1927,14 +2048,69 @@
                     backToTopBtn.classList.add('opacity-0', 'invisible');
                 }
             });
-            
+
             // 点击返回顶部
-            backToTopBtn.addEventListener('click', function() {
+            backToTopBtn.addEventListener('click', function () {
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // 图片懒加载功能 - 简化版本
+        document.addEventListener('DOMContentLoaded', function () {
+            // 检查浏览器是否支持原生懒加载
+            if ('loading' in HTMLImageElement.prototype) {
+                // 现代浏览器支持原生懒加载，图片会自动懒加载
+                // 我们只需要添加一些加载效果
+                const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+                lazyImages.forEach(img => {
+                    // 添加加载完成的淡入效果
+                    img.addEventListener('load', function () {
+                        img.style.opacity = '1';
+                    });
+
+                    img.addEventListener('error', function () {
+                        console.warn('图片加载失败:', img.src);
+                    });
+                });
+            } else {
+                // 旧浏览器不支持原生懒加载，使用Intersection Observer作为fallback
+                if ('IntersectionObserver' in window) {
+                    const imageObserver = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const img = entry.target;
+
+                                if (img.dataset.src) {
+                                    img.src = img.dataset.src;
+                                    img.removeAttribute('data-src');
+
+                                    img.addEventListener('load', function () {
+                                        img.style.opacity = '1';
+                                    });
+                                }
+
+                                observer.unobserve(img);
+                            }
+                        });
+                    }, {
+                        rootMargin: '50px 0px',
+                        threshold: 0.1
+                    });
+
+                    // 只对不支持原生懒加载的浏览器处理图片
+                    const fallbackImages = document.querySelectorAll('img[loading="lazy"]');
+                    fallbackImages.forEach(img => {
+                        const src = img.src;
+                        img.dataset.src = src;
+                        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB2aWV3Qm94PSIwIDAgMSAxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNGNUYxRUQiLz48L3N2Zz4=';
+                        img.style.opacity = '0.7';
+                        imageObserver.observe(img);
+                    });
+                }
+            }
         });
     </script>
 </body>
