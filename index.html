@@ -191,10 +191,10 @@
             /* 行书文字样式 */
             .horizontal-text {
                 /* font-family: 'Ma Shan Zheng', cursive; 行书字体 */
-                line-height: 1.4;
+                line-height: 1.8;
                 letter-spacing: 1px;
                 text-indent: 2em;
-                margin-bottom: 20px;
+                margin-bottom: 22px;
                 font-size: 20px;
                 font-weight: 100;
             }
@@ -572,7 +572,7 @@
 
                     <div class="about-content space-y-6">
                         <p class="horizontal-text text-lg text-dark/80">
-                            本人陈恩松，生于古赤壁之墟咸宁，乡间田野玩泥巴长大，年幼时相貌俊俏，偏爱文学、笔墨，然童心顽劣，每逃学似飞鸿振翅，后蒙父母棍棒夹糖，方收顽心，伏案数载，幸得本科一纸文凭。年二十时，得校招所录，怀鸿鹄之志，负笈南行，只身越岭千里抵粤，投身IT业十余载，虽无大福，却也安乐，现居羊城，谋得电网软件项目经理一职，日出而作，日落不息...
+                            本人陈恩松，生于古赤壁之墟咸宁，乡间田野玩泥巴长大，年幼时相貌俊俏，偏爱文学、笔墨，然！童心顽劣，每逃学似飞鸿振翅，后蒙父母棍棒夹糖，方收顽心，伏案数载，幸得本科一纸文凭。年二十时，得校招所录，怀鸿鹄之志，负笈南行，只身越岭千里抵粤，投身IT业十余载，虽无大福，却也安乐，现居羊城，谋得电网软件项目经理一职，日出而作，日落不息...
                         </p>
                         <p class="horizontal-text text-lg text-dark/80">
                             平生所好有四：一曰墨香润心，每得闲暇，必研墨挥毫；二曰 AI 驯诗，尝以算法为舟，渡于词海，令机器缀句成篇；
@@ -601,6 +601,32 @@
                 <div class="hobbies-slider">
                     <div class="hobbies-carousel relative overflow-hidden w-full">
                         <div class="hobbies-track flex transition-transform duration-500 ease-in-out">
+                          <!-- 运动 -->
+                            <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
+                                <div
+                                    class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
+                                    <div class="h-56 overflow-hidden">
+                                        <img src="./img/sport-me.png" alt="运动健身" loading="lazy"
+                                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                    </div>
+                                    <div class="p-6">
+                                        <div
+                                            class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                                            <i class="fas fa-running text-primary text-xl"></i>
+                                        </div>
+                                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">运动健身</h3>
+                                        <p class="text-dark/70 mb-4">
+                                            和好友挥拍羽毛球，汗水混着笑，球起球落都是畅快。
+                                        </p>
+                                        <a href="javascript:void(0);"
+                                            class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
+                                            健身日志 <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <!-- 书法 -->
                             <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
                                 <div
@@ -627,30 +653,7 @@
                                 </div>
                             </div>
 
-                            <!-- 运动 -->
-                            <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
-                                <div
-                                    class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
-                                    <div class="h-56 overflow-hidden">
-                                        <img src="./img/sport-me.png" alt="运动健身" loading="lazy"
-                                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                    </div>
-                                    <div class="p-6">
-                                        <div
-                                            class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                                            <i class="fas fa-running text-primary text-xl"></i>
-                                        </div>
-                                        <h3 class="text-xl font-serif font-bold mb-3 text-dark">运动健身</h3>
-                                        <p class="text-dark/70 mb-4">
-                                            和好友挥拍羽毛球，汗水混着笑，球起球落都是畅快。
-                                        </p>
-                                        <a href="javascript:void(0);"
-                                            class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
-                                            健身日志 <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <!-- 编程 -->
                             <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
@@ -983,7 +986,7 @@
                             </div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">统筹千万级项目全生命周期管理，协调技术、产品、业务多方资源，对项目结果负责。</p>
-                                <img src="img/jb.jpg" alt="项目管理成果" loading="lazy"
+                                <img src="" alt="项目管理成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
                         </div>
@@ -997,7 +1000,7 @@
                             </div>
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">负责公司级技术战略落地，指导多个项目组技术方向，解决跨项目技术瓶颈。</p>
-                                <img src="img/zs.png" alt="技术战略成果" loading="lazy"
+                                <img src="" alt="技术战略成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
                         </div>
@@ -1010,7 +1013,7 @@
                             </div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">担任技术攻坚组负责人，主导核心技术选型与架构设计。</p>
-                                <img src="img/jg.png" alt="架构设计成果" loading="lazy"
+                                <img src="" alt="架构设计成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
                         </div>
@@ -1024,7 +1027,7 @@
                             </div>
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">统筹整条产品线的技术开发，协调前后端资源，参与产品规划。</p>
-                                <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=产品规划截图" alt="产品规划成果"
+                                <img src="" alt="产品规划成果"
                                     loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
@@ -1038,7 +1041,7 @@
                             </div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">独立负责 2 个产品线的功能迭代，参与技术方案设计。</p>
-                                <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=功能迭代截图" alt="功能迭代成果"
+                                <img src="" alt="功能迭代成果"
                                     loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
@@ -1053,7 +1056,7 @@
                             </div>
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">带领 3 人小组负责核心功能模块开发，参与需求评审与代码优化。</p>
-                                <img src="https://via.placeholder.com/400x250/F5F1ED/8A7968?text=团队管理截图" alt="团队管理成果"
+                                <img src="" alt="团队管理成果"
                                     loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
@@ -1594,7 +1597,7 @@
                 ripple.className = 'rain-ripple';
 
                 // 随机大小
-                const size = Math.random() * 10 + 5; // 5-15px
+                const size = Math.random() * 10 + 20; // 5-15px
 
                 ripple.style.left = `${posX}px`;
                 ripple.style.bottom = '0px';
@@ -1924,6 +1927,7 @@
 
             // 鼠标点击渐变爱心冒泡飘动
             function createHeart(x, y) {
+
                 const heart = document.createElement('div');
                 heart.style.position = 'fixed';
                 heart.style.left = x - 16 + 'px';
@@ -1941,6 +1945,7 @@
                     heart.style.opacity = 0;
                 }, 10);
                 setTimeout(() => heart.remove(), 1200);
+
             }
 
             document.addEventListener('click', function (e) {
