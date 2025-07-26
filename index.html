@@ -33,6 +33,24 @@
         }
     </script>
     <style type="text/tailwindcss">
+        .bg-yanyu {
+        
+        /* 核心：设置背景图片 */
+        background-image: url("./img/yanyu2.png"); /* 图片路径（本地或网络地址） */
+        
+        /* 图片摆放位置：x轴（left/center/right/具体像素）、y轴（top/center/bottom/具体像素） */
+        background-position: center center; /* 居中显示 */
+        
+        /* 图片是否重复：no-repeat（不重复）、repeat（默认重复）、repeat-x（水平重复）、repeat-y（垂直重复） */
+        background-repeat: no-repeat;
+        
+        /* 图片尺寸：cover（覆盖容器，可能裁剪）、contain（完整显示，可能留空白）、具体尺寸（如 100% 100%） */
+        background-size:120% 110%; 
+        background-position: center; /* 右下角显示 */
+
+
+    /* background-size: 50% 50%; 图片占容器的50%宽高 */
+    }
         @layer utilities {
             .text-shadow-sm {
                 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -461,7 +479,7 @@
         </div>
     </nav>
     <!-- 页面容器 -->
-    <div class="scroll-container h-screen overflow-y-auto scrollbar-hide snap-y snap-mandatory">
+    <div class="scroll-container h-screen overflow-y-auto scrollbar-hide snap-y snap-mandatory ">
         <!-- 首页部分 -->
         <section id="home" class="min-h-screen flex items-center relative snap-start">
             <!-- 装饰元素 -->
@@ -519,7 +537,7 @@
             <!-- 装饰元素 -->
             <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-light to-transparent"></div>
 
-            <div class="container mx-auto px-4 md:px-8 py-20">
+            <div class="container mx-auto px-4 md:px-8 py-20  bg-yanyu">
                 <div class="max-w-4xl mx-auto text-center">
                     <div class="inline-block mb-8 p-1 bg-secondary/20 rounded-full">
                         <i class="fas fa-quote-left text-4xl text-primary/50"></i>
@@ -645,14 +663,13 @@
                                         <p class="text-dark/70 mb-4">
                                             书法是我与传统文化对话的方式，从楷书的端庄到行书的流畅，每一笔都让我感受到中华文化的博大精深。
                                         </p>
-                                        <a href="javascript:void(0);"
+                                        <a  href="javascript:void(0);"
                                             class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
                                             查看作品 <i class="fas fa-arrow-right ml-2 text-sm"></i>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-
 
 
                             <!-- 编程 -->
@@ -938,6 +955,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <!-- 游戏设计2 -->
                     <div class="gallery-item game group" data-category="game">
