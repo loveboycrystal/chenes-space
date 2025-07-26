@@ -1904,6 +1904,11 @@
             let noteInterval;
 
             function startNoteAnimation() {
+                // 如果动画已经在运行，先停止它
+                if (noteInterval) {
+                    clearInterval(noteInterval);
+                }
+                
                 // 每500ms创建一个音符
                 noteInterval = setInterval(() => {
                     createMusicNote(musicToggle);
@@ -1914,7 +1919,10 @@
             }
 
             function stopNoteAnimation() {
-                clearInterval(noteInterval);
+                if (noteInterval) {
+                    clearInterval(noteInterval);
+                    noteInterval = null;
+                }
             }
 
             function toggleMusic() {
