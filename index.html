@@ -329,6 +329,22 @@
                 transition: opacity 0.3s ease-in-out;
             }
             
+            /* 音乐按钮脉冲动画 */
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(138, 121, 104, 0.4);
+                }
+                50% {
+                    transform: scale(1.05);
+                    box-shadow: 0 0 0 10px rgba(138, 121, 104, 0);
+                }
+                100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(138, 121, 104, 0);
+                }
+            }
+            
             /* 春雨绵绵动效 */
             .raindrop {
                 position: fixed;
@@ -619,7 +635,7 @@
                 <div class="hobbies-slider">
                     <div class="hobbies-carousel relative overflow-hidden w-full">
                         <div class="hobbies-track flex transition-transform duration-500 ease-in-out">
-                          <!-- 运动 -->
+                            <!-- 运动 -->
                             <div class="hobby-item w-full md:w-1/3 flex-shrink-0 px-4">
                                 <div
                                     class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:-translate-y-4 hover:shadow-xl group h-full">
@@ -663,7 +679,7 @@
                                         <p class="text-dark/70 mb-4">
                                             书法是我与传统文化对话的方式，从楷书的端庄到行书的流畅，每一笔都让我感受到中华文化的博大精深。
                                         </p>
-                                        <a  href="javascript:void(0);"
+                                        <a href="javascript:void(0);"
                                             class="inline-flex items-center text-primary font-medium hover:text-accent transition-colors duration-300">
                                             查看作品 <i class="fas fa-arrow-right ml-2 text-sm"></i>
                                         </a>
@@ -1045,8 +1061,7 @@
                             </div>
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">统筹整条产品线的技术开发，协调前后端资源，参与产品规划。</p>
-                                <img src="" alt="产品规划成果"
-                                    loading="lazy"
+                                <img src="" alt="产品规划成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
                         </div>
@@ -1059,8 +1074,7 @@
                             </div>
                             <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">独立负责 2 个产品线的功能迭代，参与技术方案设计。</p>
-                                <img src="" alt="功能迭代成果"
-                                    loading="lazy"
+                                <img src="" alt="功能迭代成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:mx-0 object-cover">
                             </div>
                         </div>
@@ -1074,8 +1088,7 @@
                             </div>
                             <div class="md:w-1/2 md:pr-12 mt-4 md:mt-0">
                                 <p class="text-dark/70 mb-4">带领 3 人小组负责核心功能模块开发，参与需求评审与代码优化。</p>
-                                <img src="" alt="团队管理成果"
-                                    loading="lazy"
+                                <img src="" alt="团队管理成果" loading="lazy"
                                     class="rounded-lg shadow-md w-full max-w-sm mx-auto md:ml-auto object-cover">
                             </div>
                         </div>
@@ -1914,15 +1927,23 @@
                     isMusicPlaying = false;
                     stopNoteAnimation();
                 } else {
-                    backgroundMusic.play().catch(e => {
+                    // 手动播放时，标记自动播放已触发，避免重复
+                    autoPlayTriggered = true;
+
+                    backgroundMusic.play().then(() => {
+                        musicIcon.className = 'fas fa-pause text-primary text-lg';
+                        musicIconMobile.className = 'fas fa-pause text-primary text-lg';
+                        musicToggle.title = '暂停背景音乐';
+                        musicToggleMobile.title = '暂停背景音乐';
+                        isMusicPlaying = true;
+                        startNoteAnimation();
+
+                        // 移除自动播放监听器，因为用户已经手动控制了
+                        removeAutoPlayListeners();
+                    }).catch(e => {
                         console.log('音乐播放失败:', e);
+                        autoPlayTriggered = false; // 播放失败时重置标志
                     });
-                    musicIcon.className = 'fas fa-pause text-primary text-lg';
-                    musicIconMobile.className = 'fas fa-pause text-primary text-lg';
-                    musicToggle.title = '暂停背景音乐';
-                    musicToggleMobile.title = '暂停背景音乐';
-                    isMusicPlaying = true;
-                    startNoteAnimation();
                 }
             }
 
@@ -1930,10 +1951,93 @@
             musicToggle.addEventListener('click', toggleMusic);
             musicToggleMobile.addEventListener('click', toggleMusic);
 
-            // 音乐加载完成后自动播放
+            // 自动播放音乐功能
+            let autoPlayTriggered = false; // 防止重复触发
+
+            function tryAutoPlayMusic() {
+                if (!autoPlayTriggered && !isMusicPlaying && backgroundMusic.readyState >= 2) {
+                    autoPlayTriggered = true;
+
+                    backgroundMusic.play().then(() => {
+                        // 音乐播放成功，更新UI状态
+                        musicIcon.className = 'fas fa-pause text-primary text-lg';
+                        musicIconMobile.className = 'fas fa-pause text-primary text-lg';
+                        musicToggle.title = '暂停背景音乐';
+                        musicToggleMobile.title = '暂停背景音乐';
+                        isMusicPlaying = true;
+                        startNoteAnimation();
+
+                        console.log('背景音乐自动播放成功');
+
+                        // 移除事件监听器，避免重复触发
+                        removeAutoPlayListeners();
+                    }).catch(e => {
+                        console.log('自动播放失败，等待用户手动播放:', e);
+                        autoPlayTriggered = false; // 重置标志，允许再次尝试
+                    });
+                }
+            }
+
+            // 移除自动播放事件监听器
+            function removeAutoPlayListeners() {
+                document.removeEventListener('click', tryAutoPlayMusic);
+                document.removeEventListener('touchstart', tryAutoPlayMusic);
+                document.removeEventListener('touchend', tryAutoPlayMusic);
+                document.removeEventListener('scroll', tryAutoPlayMusic);
+                window.removeEventListener('scroll', tryAutoPlayMusic);
+                document.removeEventListener('keydown', tryAutoPlayMusic);
+                document.removeEventListener('mousemove', tryAutoPlayMusic);
+
+                console.log('自动播放监听器已移除');
+            }
+
+            // 添加用户交互事件监听器来触发自动播放
+            function setupAutoPlayListeners() {
+                // 点击事件
+                document.addEventListener('click', tryAutoPlayMusic, { passive: true });
+
+                // 触摸事件（移动端）
+                document.addEventListener('touchstart', tryAutoPlayMusic, { passive: true });
+                document.addEventListener('touchend', tryAutoPlayMusic, { passive: true });
+
+                // 滚动事件
+                document.addEventListener('scroll', tryAutoPlayMusic, { passive: true });
+                window.addEventListener('scroll', tryAutoPlayMusic, { passive: true });
+
+                // 键盘事件
+                document.addEventListener('keydown', tryAutoPlayMusic, { passive: true });
+
+                // 鼠标移动事件（延迟触发，避免过于敏感）
+                let mouseMoveTimer;
+                document.addEventListener('mousemove', () => {
+                    clearTimeout(mouseMoveTimer);
+                    mouseMoveTimer = setTimeout(tryAutoPlayMusic, 500);
+                }, { passive: true });
+
+                console.log('自动播放监听器已设置');
+            }
+
+            // 音乐加载完成后设置自动播放监听器
             backgroundMusic.addEventListener('canplaythrough', () => {
                 // 由于浏览器政策，需要用户交互才能播放音频
-                // 这里不自动播放，等待用户点击
+                // 设置事件监听器，在用户交互时自动播放
+                setupAutoPlayListeners();
+
+                // 可选：显示一个提示，告诉用户音乐将会自动播放
+                if (!autoPlayTriggered && !isMusicPlaying) {
+                    console.log('背景音乐已准备就绪，将在用户交互时自动播放');
+
+                    // 可以在这里添加一个小的视觉提示
+                    const musicButtons = [musicToggle, musicToggleMobile];
+                    musicButtons.forEach(button => {
+                        if (button) {
+                            button.style.animation = 'pulse 2s infinite';
+                            setTimeout(() => {
+                                button.style.animation = '';
+                            }, 6000); // 6秒后停止动画
+                        }
+                    });
+                }
             });
 
             // 音乐播放结束时重置图标
@@ -1941,6 +2045,30 @@
                 musicIcon.className = 'fas fa-music text-primary text-lg';
                 musicIconMobile.className = 'fas fa-music text-primary text-lg';
                 isMusicPlaying = false;
+                stopNoteAnimation();
+            });
+
+            // 监听音乐播放状态变化
+            backgroundMusic.addEventListener('play', () => {
+                if (!isMusicPlaying) {
+                    isMusicPlaying = true;
+                    musicIcon.className = 'fas fa-pause text-primary text-lg';
+                    musicIconMobile.className = 'fas fa-pause text-primary text-lg';
+                    musicToggle.title = '暂停背景音乐';
+                    musicToggleMobile.title = '暂停背景音乐';
+                    startNoteAnimation();
+                }
+            });
+
+            backgroundMusic.addEventListener('pause', () => {
+                if (isMusicPlaying) {
+                    isMusicPlaying = false;
+                    musicIcon.className = 'fas fa-music text-primary text-lg';
+                    musicIconMobile.className = 'fas fa-music text-primary text-lg';
+                    musicToggle.title = '播放背景音乐';
+                    musicToggleMobile.title = '播放背景音乐';
+                    stopNoteAnimation();
+                }
             });
 
             // 鼠标点击渐变爱心冒泡飘动
@@ -2134,6 +2262,15 @@
                     });
                 }
             }
+
+            // 页面加载完成后，检查音乐是否可以播放，如果可以则设置自动播放监听器
+            setTimeout(() => {
+                if (typeof backgroundMusic !== 'undefined' && backgroundMusic && backgroundMusic.readyState >= 2) {
+                    if (typeof setupAutoPlayListeners === 'function') {
+                        setupAutoPlayListeners();
+                    }
+                }
+            }, 1000);
         });
     </script>
 </body>
