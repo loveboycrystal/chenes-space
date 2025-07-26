@@ -1908,7 +1908,7 @@
                 if (noteInterval) {
                     clearInterval(noteInterval);
                 }
-                
+
                 // 每500ms创建一个音符
                 noteInterval = setInterval(() => {
                     createMusicNote(musicToggle);
@@ -1962,67 +1962,127 @@
             // 自动播放音乐功能
             let autoPlayTriggered = false; // 防止重复触发
 
-            function tryAutoPlayMusic() {
+            function tryAutoPlayMusic(eventType = 'unknown') {
+                console.log(`尝试自动播放音乐 - 事件类型: ${eventType}, autoPlayTriggered: ${autoPlayTriggered}, isMusicPlaying: ${isMusicPlaying}, readyState: ${backgroundMusic.readyState}`);
+
                 if (!autoPlayTriggered && !isMusicPlaying && backgroundMusic.readyState >= 2) {
                     autoPlayTriggered = true;
+                    console.log('开始尝试播放音乐...');
 
-                    backgroundMusic.play().then(() => {
-                        // 音乐播放成功，更新UI状态
-                        musicIcon.className = 'fas fa-pause text-primary text-lg';
-                        musicIconMobile.className = 'fas fa-pause text-primary text-lg';
-                        musicToggle.title = '暂停背景音乐';
-                        musicToggleMobile.title = '暂停背景音乐';
-                        isMusicPlaying = true;
-                        startNoteAnimation();
+                    // 移动端特殊处理：先设置音量，再播放
+                    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        backgroundMusic.volume = 0.3;
+                        backgroundMusic.muted = false;
+                        console.log('移动端：设置音量和取消静音');
+                    }
 
-                        console.log('背景音乐自动播放成功');
+                    const playPromise = backgroundMusic.play();
 
-                        // 移除事件监听器，避免重复触发
-                        removeAutoPlayListeners();
-                    }).catch(e => {
-                        console.log('自动播放失败，等待用户手动播放:', e);
-                        autoPlayTriggered = false; // 重置标志，允许再次尝试
-                    });
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            // 音乐播放成功，更新UI状态
+                            musicIcon.className = 'fas fa-pause text-primary text-lg';
+                            musicIconMobile.className = 'fas fa-pause text-primary text-lg';
+                            musicToggle.title = '暂停背景音乐';
+                            musicToggleMobile.title = '暂停背景音乐';
+                            isMusicPlaying = true;
+                            startNoteAnimation();
+
+                            console.log(`背景音乐自动播放成功 - 触发事件: ${eventType}`);
+
+                            // 移除事件监听器，避免重复触发
+                            removeAutoPlayListeners();
+                        }).catch(e => {
+                            console.log(`自动播放失败 - 事件: ${eventType}, 错误:`, e);
+                            autoPlayTriggered = false; // 重置标志，允许再次尝试
+
+                            // 移动端：如果是权限问题，尝试其他方法
+                            if (e.name === 'NotAllowedError' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                                console.log('移动端权限被拒绝，等待更明确的用户交互...');
+                                // 可以在这里添加用户提示
+                            }
+                        });
+                    }
+                } else {
+                    console.log(`跳过自动播放 - 条件不满足`);
                 }
             }
 
             // 移除自动播放事件监听器
             function removeAutoPlayListeners() {
-                document.removeEventListener('click', tryAutoPlayMusic);
-                document.removeEventListener('touchstart', tryAutoPlayMusic);
-                document.removeEventListener('touchend', tryAutoPlayMusic);
-                document.removeEventListener('scroll', tryAutoPlayMusic);
-                window.removeEventListener('scroll', tryAutoPlayMusic);
-                document.removeEventListener('keydown', tryAutoPlayMusic);
-                document.removeEventListener('mousemove', tryAutoPlayMusic);
+                // 由于我们使用了匿名函数，需要重新定义移除方式
+                // 或者我们可以简单地设置一个标志来停止处理
+                autoPlayTriggered = true; // 设置标志，防止后续触发
 
-                console.log('自动播放监听器已移除');
+                console.log('自动播放监听器已禁用（通过标志位）');
             }
 
             // 添加用户交互事件监听器来触发自动播放
             function setupAutoPlayListeners() {
+                console.log('设置自动播放监听器...');
+
                 // 点击事件
-                document.addEventListener('click', tryAutoPlayMusic, { passive: true });
+                document.addEventListener('click', (e) => {
+                    console.log('检测到点击事件:', e.target);
+                    tryAutoPlayMusic('click');
+                }, { passive: true });
 
                 // 触摸事件（移动端）
-                document.addEventListener('touchstart', tryAutoPlayMusic, { passive: true });
-                document.addEventListener('touchend', tryAutoPlayMusic, { passive: true });
+                document.addEventListener('touchstart', (e) => {
+                    console.log('检测到touchstart事件:', e.target);
+                    tryAutoPlayMusic('touchstart');
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    console.log('检测到touchend事件:', e.target);
+                    tryAutoPlayMusic('touchend');
+                }, { passive: true });
+
+                // 添加tap事件（移动端特有）
+                document.addEventListener('touchmove', (e) => {
+                    console.log('检测到touchmove事件');
+                    tryAutoPlayMusic('touchmove');
+                }, { passive: true });
 
                 // 滚动事件
-                document.addEventListener('scroll', tryAutoPlayMusic, { passive: true });
-                window.addEventListener('scroll', tryAutoPlayMusic, { passive: true });
+                document.addEventListener('scroll', (e) => {
+                    console.log('检测到scroll事件');
+                    tryAutoPlayMusic('scroll');
+                }, { passive: true });
+
+                window.addEventListener('scroll', (e) => {
+                    console.log('检测到window scroll事件');
+                    tryAutoPlayMusic('window-scroll');
+                }, { passive: true });
 
                 // 键盘事件
-                document.addEventListener('keydown', tryAutoPlayMusic, { passive: true });
+                document.addEventListener('keydown', (e) => {
+                    console.log('检测到keydown事件:', e.key);
+                    tryAutoPlayMusic('keydown');
+                }, { passive: true });
 
                 // 鼠标移动事件（延迟触发，避免过于敏感）
                 let mouseMoveTimer;
-                document.addEventListener('mousemove', () => {
+                document.addEventListener('mousemove', (e) => {
                     clearTimeout(mouseMoveTimer);
-                    mouseMoveTimer = setTimeout(tryAutoPlayMusic, 500);
+                    mouseMoveTimer = setTimeout(() => {
+                        console.log('检测到mousemove事件');
+                        tryAutoPlayMusic('mousemove');
+                    }, 500);
                 }, { passive: true });
 
-                console.log('自动播放监听器已设置');
+                // 添加更多移动端事件
+                document.addEventListener('gesturestart', (e) => {
+                    console.log('检测到gesturestart事件');
+                    tryAutoPlayMusic('gesturestart');
+                }, { passive: true });
+
+                document.addEventListener('orientationchange', (e) => {
+                    console.log('检测到orientationchange事件');
+                    setTimeout(() => tryAutoPlayMusic('orientationchange'), 100);
+                }, { passive: true });
+
+                console.log('自动播放监听器已设置完成');
             }
 
             // 音乐加载完成后设置自动播放监听器
@@ -2045,6 +2105,26 @@
                             }, 6000); // 6秒后停止动画
                         }
                     });
+
+                    // 移动端调试：添加一个临时的测试按钮
+                    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                        const testBtn = document.createElement('button');
+                        testBtn.textContent = '测试自动播放';
+                        testBtn.style.cssText = 'position:fixed;top:10px;left:10px;z-index:9999;background:red;color:white;padding:10px;border:none;border-radius:5px;';
+                        testBtn.onclick = () => {
+                            console.log('手动触发自动播放测试');
+                            tryAutoPlayMusic('manual-test');
+                            testBtn.remove();
+                        };
+                        document.body.appendChild(testBtn);
+
+                        // 5秒后自动移除测试按钮
+                        setTimeout(() => {
+                            if (testBtn.parentNode) {
+                                testBtn.remove();
+                            }
+                        }, 5000);
+                    }
                 }
             });
 
@@ -2273,12 +2353,43 @@
 
             // 页面加载完成后，检查音乐是否可以播放，如果可以则设置自动播放监听器
             setTimeout(() => {
+                console.log('页面加载完成，检查音乐状态...');
+                console.log('backgroundMusic存在:', typeof backgroundMusic !== 'undefined');
+                console.log('backgroundMusic readyState:', backgroundMusic ? backgroundMusic.readyState : 'undefined');
+                console.log('是否为移动设备:', /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+
                 if (typeof backgroundMusic !== 'undefined' && backgroundMusic && backgroundMusic.readyState >= 2) {
                     if (typeof setupAutoPlayListeners === 'function') {
                         setupAutoPlayListeners();
                     }
+                } else {
+                    console.log('音乐未准备好，等待canplaythrough事件...');
                 }
             }, 1000);
+
+            // 添加额外的移动端检查
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                console.log('检测到移动设备，添加额外的事件监听器...');
+
+                // 为移动端添加额外的触发机制
+                document.addEventListener('DOMContentLoaded', () => {
+                    setTimeout(() => {
+                        if (typeof setupAutoPlayListeners === 'function' && !autoPlayTriggered) {
+                            setupAutoPlayListeners();
+                        }
+                    }, 2000);
+                });
+
+                // 页面可见性变化时重新尝试
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && !autoPlayTriggered && !isMusicPlaying) {
+                        console.log('页面变为可见，重新设置自动播放监听器');
+                        if (typeof setupAutoPlayListeners === 'function') {
+                            setupAutoPlayListeners();
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
